@@ -9,10 +9,12 @@ import VueRouter from 'vue-router'
 import './bootstrap'
 import App from './views/App'
 import Home from './views/Home'
+import CompositionAPI from '@vue/composition-api'
 
 window.Vue = Vue;
 
 Vue.use(VueRouter)
+Vue.use(CompositionAPI)
 
 /**
  * The following block of code may be used to automatically register your
@@ -33,7 +35,7 @@ Vue.use(VueRouter)
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const app = new Vue({
+new Vue({
     el: '#app',
     components: { App },
     router: new VueRouter({
