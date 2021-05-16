@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Model\Item;
-// use Illuminate\Http\Request;
+use Illuminate\Http\Request;
 
 class ItemController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $items = Item::all();
+        $items = Item::simplePaginate(50);
         return response($items);
     }
 }
