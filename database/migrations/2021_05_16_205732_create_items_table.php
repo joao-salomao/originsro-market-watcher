@@ -10,11 +10,12 @@ class CreateItemsTable extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger("item_id");
             $table->text("unique_name");
             $table->text("name");
             $table->text("type");
             $table->double("npc_price");
-            $table->longText("icon")->default(null);
+            $table->longText("icon")->nullable();
             $table->timestamps();
         });
     }

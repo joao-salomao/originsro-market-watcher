@@ -1,12 +1,13 @@
 <?php
 
-namespace App;
+namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Item extends Model
 {
-    protected $fillable =[
+    protected $fillable = [
+        'item_id',
         'unique_name',
         'name',
         'type',
