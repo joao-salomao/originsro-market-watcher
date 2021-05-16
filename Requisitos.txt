@@ -1,0 +1,9 @@
+1 - Criar listagem dos itens com paginação
+    - Deve possuir os seguintes filtros:
+        1 - ID
+        2 - Nome
+        3 - Categoria
+
+2 - Pagina do Item
+    - Informações do mercado atual
+    - Opção de criar alerta
