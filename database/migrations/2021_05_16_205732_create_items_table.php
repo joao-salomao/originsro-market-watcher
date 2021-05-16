@@ -6,24 +6,19 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateItemsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('items', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->text("unique_name");
+            $table->text("name");
+            $table->text("type");
+            $table->double("npc_price");
+            $table->longText("icon")->default(null);
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('items');
