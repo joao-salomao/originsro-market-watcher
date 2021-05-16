@@ -5,16 +5,16 @@
  */
 
 import Vue from 'vue'
-import VueRouter from 'vue-router'
-import './bootstrap'
 import App from './views/App'
-import Home from './views/Home'
+import router from './router'
+import VueRouter from 'vue-router'
 import CompositionAPI from '@vue/composition-api'
-
-window.Vue = Vue;
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
 Vue.use(VueRouter)
 Vue.use(CompositionAPI)
+Vue.use(BootstrapVue)
+Vue.use(IconsPlugin)
 
 /**
  * The following block of code may be used to automatically register your
@@ -37,15 +37,6 @@ Vue.use(CompositionAPI)
 
 new Vue({
     el: '#app',
+    router,
     components: { App },
-    router: new VueRouter({
-        mode: 'history',
-        routes: [
-            {
-                path: '/',
-                name: 'home',
-                component: Home
-            }
-        ],
-    })
 });
