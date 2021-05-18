@@ -40,7 +40,7 @@ class OriginsRoApiClient
     public function getItemsIcons(): array
     {
         $response = $this->executeRequest('items/icons');
-        return $response['items'];
+        return $response['icons'];
     }
 
     private function executeRequest(string $url): array
