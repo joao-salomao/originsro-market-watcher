@@ -15,4 +15,9 @@ class Alert extends Model
     {
         return $this->belongsTo(AlertMatch::class);
     }
+
+    public function item()
+    {
+        return $this->belongsTo(Item::class);
+    }
 }

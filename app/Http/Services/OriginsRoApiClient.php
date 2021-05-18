@@ -25,7 +25,7 @@ class OriginsRoApiClient
         return $response;
     }
 
-    public function getMarketList(): array
+    public function getMarketShops(): array
     {
         $response = $this->executeRequest('market/list');
         return $response['shops'];
