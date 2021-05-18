@@ -70,8 +70,8 @@ export default {
   methods: {
     onSubmitWatch() {
       this.form.isSubmitting = true;
-      const { max_price, item_id } = this.form;
-      api.post("api/alert", { max_price, item_id }).finally(() => {
+      const { max_price, id } = this.form;
+      api.post("api/alert", { max_price, item_id: id }).finally(() => {
         this.form.isSubmitting = false;
         this.$refs["modal"].hide();
       });
