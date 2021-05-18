@@ -10,4 +10,9 @@ class Alert extends Model
         'item_id',
         'max_price'
     ];
+
+    public function matches()
+    {
+        return $this->belongsTo(AlertMatch::class);
+    }
 }
