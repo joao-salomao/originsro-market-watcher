@@ -13,3 +13,4 @@
 */
 
 Route::get('item', 'ItemController@index');
+Route::post('alert', 'AlertController@store');
