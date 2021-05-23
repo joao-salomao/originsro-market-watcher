@@ -1,6 +1,5 @@
 <template>
-  <div class="p-4">
-    <h1>Items</h1>
+  <div>
     <b-table striped hover :items="items" :fields="fields">
       <template #cell(icon)="{ item }">
         <img width="30" height="30" :src="item.icon" />
@@ -45,10 +44,13 @@
         </div>
       </b-form>
     </b-modal>
-
-    <button @click="onClickPaginationAction(firstPageUrl)">First</button>
-    <button @click="onClickPaginationAction(firstPageUrl)">Previous</button>
-    <button @click="onClickPaginationAction(nextPageUrl)">Next</button>
+    <div class="d-flex justify-content-center">
+      <b-button-group>
+        <b-button @click="onClickPaginationAction(firstPageUrl)">First</b-button>
+        <b-button @click="onClickPaginationAction(firstPageUrl)">Previous</b-button>
+        <b-button @click="onClickPaginationAction(nextPageUrl)">Next</b-button>
+      </b-button-group>
+    </div>
   </div>
 </template>
 <script>

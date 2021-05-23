@@ -1,13 +1,17 @@
 import VueRouter from 'vue-router'
-import Home from './views/Home'
+import Items from './views/Items'
+import Alerts from './views/Alerts'
 
 export default new VueRouter({
     mode: 'history',
     routes: [
         {
             path: '/',
-            name: 'home',
-            component: Home
+            component: Items
+        },
+        {
+            path: '/alerts',
+            component: Alerts
         }
     ],
 })
