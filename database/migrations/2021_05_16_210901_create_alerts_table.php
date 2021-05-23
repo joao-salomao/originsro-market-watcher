@@ -14,6 +14,7 @@ class CreateAlertsTable extends Migration
             $table->bigInteger("item_id")->unsigned();
             $table->double("max_price");
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('item_id')->references('id')->on('items');
         });
