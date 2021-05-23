@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -13,5 +15,4 @@
 */
 
 Route::get('item', 'ItemController@index');
-Route::get('alert', 'AlertController@index');
-Route::post('alert', 'AlertController@store');
+Route::resource('alert', AlertController::class);

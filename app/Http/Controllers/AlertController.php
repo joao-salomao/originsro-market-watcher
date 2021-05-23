@@ -20,4 +20,17 @@ class AlertController extends Controller
         $alert = Alert::create($data);
         return response($alert);
     }
+
+    public function update(Request $request, Alert $alert)
+    {
+        $data = $request->all();
+        $result = $alert->update($data);
+        return response(['updated' => $result]);
+    }
+
+    public function destroy(Alert $alert)
+    {
+        $result = $alert->delete();
+        return response(['deleted' => $result]);
+    }
 }
