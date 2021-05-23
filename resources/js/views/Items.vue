@@ -22,13 +22,21 @@
     />
     <div class="d-flex justify-content-center">
       <b-button-group>
-        <b-button @click="onClickPaginationAction(firstPageUrl)"
+        <b-button
+          :disabled="!pagination.firstPage"
+          @click="onClickPaginationAction(pagination.firstPage)"
           >First</b-button
         >
-        <b-button @click="onClickPaginationAction(firstPageUrl)"
+        <b-button
+          :disabled="!pagination.previousPage"
+          @click="onClickPaginationAction(pagination.previousPage)"
           >Previous</b-button
         >
-        <b-button @click="onClickPaginationAction(nextPageUrl)">Next</b-button>
+        <b-button
+          :disabled="!pagination.nextPage"
+          @click="onClickPaginationAction(pagination.nextPage)"
+          >Next</b-button
+        >
       </b-button-group>
     </div>
   </div>
@@ -49,9 +57,11 @@ export default {
       },
       items: [],
       isBusy: false,
-      nextPageUrl: null,
-      firstPageUrl: null,
-      previousPageUrl: null,
+      pagination: {
+        nextPage: null,
+        firstPage: null,
+        previousPage: null,
+      },
       fields: [
         {
           key: "item_id",
@@ -120,10 +130,18 @@ export default {
       api
         .get(url)
         .then((resp) => {
-          const { data, first_page_url, next_page_url } = resp.data;
+          const {
+            data,
+            first_page_url,
+            prev_page_url,
+            next_page_url,
+          } = resp.data;
           this.items = data;
-          this.firstPageUrl = first_page_url;
-          this.nextPageUrl = next_page_url;
+          this.pagination = {
+            nextPage: next_page_url,
+            firstPage: first_page_url,
+            previousPage: prev_page_url,
+          };
         })
         .finally(() => {
           this.isBusy = false;
