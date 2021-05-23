@@ -50,15 +50,15 @@ class SearchMarket extends Command
             }
         }
 
-        if ($items->count()) {
-            $bestOffer = $items->sortBy('price')->values()->first();
+        foreach ($items as $item) {
             AlertMatch::create([
                 'alert_id' => $alert->id,
-                'shop_name' => $bestOffer['shop_name'],
-                'owner_name' => $bestOffer['owner_name'],
-                'map' => $bestOffer['location']['map'],
-                'location_x' => $bestOffer['location']['x'],
-                'location_y' => $bestOffer['location']['y'],
+                'amount' => $item['amount'],
+                'shop_name' => $item['shop_name'],
+                'owner_name' => $item['owner_name'],
+                'map' => $item['location']['map'],
+                'location_x' => $item['location']['x'],
+                'location_y' => $item['location']['y'],
             ]);
         }
     }
