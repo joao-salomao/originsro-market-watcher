@@ -1,16 +1,19 @@
 <template>
   <div>
-    <b-table striped hover :items="alerts" :fields="fields">
+    <b-table hover :busy="isBusy" :items="alerts" :fields="fields">
       <template #cell(icon)="{ item }">
         <img width="30" height="30" :src="item.item.icon" />
       </template>
       <template #cell(name)="{ item }">
         <span>{{ item.item.name }} </span>
       </template>
-      <template #cell(action)="props">
+      <template #cell(matches)="{ item }">
+        <span>{{ item.matches.length }} </span>
+      </template>
+      <template #cell(actions)="props">
         <div>
           <b-button
-            v-if="props.item.matches"
+            v-if="props.item.matches.length"
             size="sm"
             variant="primary"
             @click="props.toggleDetails"
@@ -55,8 +58,46 @@ import api from "axios";
 export default {
   data() {
     return {
+      fields: [
+        {
+          key: "item_id",
+          label: "Item ID",
+          thClass: "text-center",
+          tdClass: "text-center",
+        },
+        {
+          key: "icon",
+          label: "Icon",
+          thClass: "text-center",
+          tdClass: "text-center",
+        },
+        {
+          key: "name",
+          label: "Name",
+          thClass: "text-center",
+          tdClass: "text-center",
+        },
+        {
+          key: "max_price",
+          label: "Max Price",
+          thClass: "text-center",
+          tdClass: "text-center",
+        },
+        {
+          key: "matches",
+          label: "Found",
+          thClass: "text-center",
+          tdClass: "text-center",
+        },
+        {
+          key: "actions",
+          label: "Actions",
+          thClass: "text-center",
+          tdClass: "text-center",
+        },
+      ],
+      isBusy: false,
       alerts: [],
-      fields: ["item_id", "icon", "name", "max_price", "action"],
     };
   },
   mounted() {
@@ -64,9 +105,20 @@ export default {
   },
   methods: {
     getWatchList() {
-      api.get("api/alert").then((resp) => {
-        this.alerts = resp.data.map((i) => ({ ...i, _showDetails: true }));
-      });
+      this.isBusy = true;
+      api
+        .get("api/alert")
+        .then((resp) => {
+          this.alerts = resp.data.map((i) => {
+            return {
+              ...i,
+              _showDetails: i.matches.length > 0,
+            };
+          });
+        })
+        .finally(() => {
+          this.isBusy = false;
+        });
     },
   },
 };

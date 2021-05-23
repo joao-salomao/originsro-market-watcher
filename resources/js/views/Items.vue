@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-table striped hover :items="items" :fields="fields">
+    <b-table striped hover :busy="isBusy" :items="items" :fields="fields">
       <template #cell(icon)="{ item }">
         <img width="30" height="30" :src="item.icon" />
       </template>
@@ -46,8 +46,12 @@
     </b-modal>
     <div class="d-flex justify-content-center">
       <b-button-group>
-        <b-button @click="onClickPaginationAction(firstPageUrl)">First</b-button>
-        <b-button @click="onClickPaginationAction(firstPageUrl)">Previous</b-button>
+        <b-button @click="onClickPaginationAction(firstPageUrl)"
+          >First</b-button
+        >
+        <b-button @click="onClickPaginationAction(firstPageUrl)"
+          >Previous</b-button
+        >
         <b-button @click="onClickPaginationAction(nextPageUrl)">Next</b-button>
       </b-button-group>
     </div>
@@ -60,10 +64,43 @@ export default {
     return {
       form: {},
       items: [],
+      isBusy: false,
       nextPageUrl: null,
       firstPageUrl: null,
       previousPageUrl: null,
       fields: ["item_id", "icon", "name", "npc_price", "action"],
+      fields: [
+        {
+          key: "item_id",
+          label: "Item ID",
+          thClass: "text-center",
+          tdClass: "text-center",
+        },
+        {
+          key: "icon",
+          label: "Icon",
+          thClass: "text-center",
+          tdClass: "text-center",
+        },
+        {
+          key: "name",
+          label: "Name",
+          thClass: "text-center",
+          tdClass: "text-center",
+        },
+        {
+          key: "npc_price",
+          label: "NPC Price",
+          thClass: "text-center",
+          tdClass: "text-center",
+        },
+        {
+          key: "action",
+          label: "Acit",
+          thClass: "text-center",
+          tdClass: "text-center",
+        },
+      ],
     };
   },
   mounted() {
@@ -96,12 +133,18 @@ export default {
       this.getItems(url);
     },
     getItems(url = "api/item") {
-      api.get(url).then((resp) => {
-        const { data, first_page_url, next_page_url } = resp.data;
-        this.items = data;
-        this.firstPageUrl = first_page_url;
-        this.nextPageUrl = next_page_url;
-      });
+      this.isBusy = true;
+      api
+        .get(url)
+        .then((resp) => {
+          const { data, first_page_url, next_page_url } = resp.data;
+          this.items = data;
+          this.firstPageUrl = first_page_url;
+          this.nextPageUrl = next_page_url;
+        })
+        .finally(() => {
+          this.isBusy = false;
+        });
     },
   },
 };

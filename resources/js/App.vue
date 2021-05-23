@@ -17,4 +17,8 @@
 .nav-bar {
   font-size: 20px;
 }
+
+#app {
+    background-color: white;
+}
 </style>
