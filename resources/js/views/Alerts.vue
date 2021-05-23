@@ -21,8 +21,13 @@
             Show Matches
           </b-button>
           <b-button size="sm" @click="onClickEdit(item)"> Edit </b-button>
-          <b-button size="sm" variant="danger" @click="onClickEdit(props.item)">
-            Delete
+          <b-button
+            size="sm"
+            variant="danger"
+            @click="onClickDelete(props.item)"
+          >
+            <b-spinner small v-if="props.item.isDeleting" />
+            <span v-else> Delete </span>
           </b-button>
         </div>
       </template>
@@ -101,10 +106,17 @@ export default {
     };
   },
   mounted() {
-    this.getWatchList();
+    this.getAlerts();
   },
   methods: {
-    getWatchList() {
+    onClickDelete(item) {
+      item.isDeleting = true;
+      api.delete(`api/alert/${item.id}`).finally(() => {
+        item.isDeleting = false;
+        this.alerts = this.alerts.filter((i) => i != item);
+      });
+    },
+    getAlerts() {
       this.isBusy = true;
       api
         .get("api/alert")
@@ -112,6 +124,7 @@ export default {
           this.alerts = resp.data.map((i) => {
             return {
               ...i,
+              isDeleting: false,
               _showDetails: i.matches.length > 0,
             };
           });
