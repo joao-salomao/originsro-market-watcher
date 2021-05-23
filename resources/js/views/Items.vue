@@ -1,18 +1,42 @@
 <template>
   <div>
-    <b-table striped hover :busy="isBusy" :items="items" :fields="fields">
-      <template #cell(icon)="{ item }">
-        <img width="30" height="30" :src="item.icon" />
-      </template>
-      <template #cell(action)="{ item }">
-        <b-button
-          size="sm"
-          variant="primary"
-          @click="onClickCreateItemAlert(item)"
-          >Create Alert</b-button
-        >
-      </template>
-    </b-table>
+    <div>
+      <b-form-select
+        class="per-page"
+        :options="perPageOptions"
+        v-model="pagination.perPage"
+      />
+      <b-table
+        hover
+        striped
+        bordered
+        show-empty
+        :items="items"
+        :fields="fields"
+        :busy="isLoading"
+      >
+        <template #cell(icon)="{ item }">
+          <img width="30" height="30" :src="item.icon" />
+        </template>
+        <template #cell(action)="{ item }">
+          <b-button
+            pill
+            size="sm"
+            variant="primary"
+            @click="onClickCreateItemAlert(item)"
+            >Create Alert</b-button
+          >
+        </template>
+      </b-table>
+      <b-pagination
+        pills
+        align="center"
+        :disabled="isLoading"
+        :total-rows="pagination.rows"
+        :per-page="pagination.perPage"
+        v-model="pagination.currentPage"
+      />
+    </div>
     <AlertForm
       :show="form.show"
       :data="form.data"
@@ -20,25 +44,6 @@
       @submit="onSubmitAlert"
       @cancel="onCancelAlertCreation"
     />
-    <div class="d-flex justify-content-center">
-      <b-button-group>
-        <b-button
-          :disabled="!pagination.firstPage"
-          @click="onClickPaginationAction(pagination.firstPage)"
-          >First</b-button
-        >
-        <b-button
-          :disabled="!pagination.previousPage"
-          @click="onClickPaginationAction(pagination.previousPage)"
-          >Previous</b-button
-        >
-        <b-button
-          :disabled="!pagination.nextPage"
-          @click="onClickPaginationAction(pagination.nextPage)"
-          >Next</b-button
-        >
-      </b-button-group>
-    </div>
   </div>
 </template>
 <script>
@@ -56,18 +61,20 @@ export default {
         isSubmitting: false,
       },
       items: [],
-      isBusy: false,
+      isLoading: false,
       pagination: {
-        nextPage: null,
-        firstPage: null,
-        previousPage: null,
+        rows: null,
+        perPage: 10,
+        currentPage: 1,
       },
+      perPageOptions: [10, 15, 30, 50, 100, 200],
       fields: [
         {
           key: "item_id",
           label: "Item ID",
           thClass: "text-center",
           tdClass: "text-center",
+          sortable: true,
         },
         {
           key: "icon",
@@ -80,12 +87,14 @@ export default {
           label: "Name",
           thClass: "text-center",
           tdClass: "text-center",
+          sortable: true,
         },
         {
           key: "npc_price",
           label: "NPC Price",
           thClass: "text-center",
           tdClass: "text-center",
+          sortable: true,
         },
         {
           key: "action",
@@ -95,6 +104,18 @@ export default {
         },
       ],
     };
+  },
+  watch: {
+    "pagination.perPage": function (newValue, oldValue) {
+      if (newValue != oldValue) {
+        this.getItems();
+      }
+    },
+    "pagination.currentPage": function (newValue, oldValue) {
+      if (newValue != oldValue) {
+        this.getItems();
+      }
+    },
   },
   mounted() {
     this.getItems();
@@ -122,31 +143,36 @@ export default {
         isSubmitting: false,
       };
     },
-    onClickPaginationAction(url) {
-      this.getItems(url);
-    },
-    getItems(url = "api/item") {
-      this.isBusy = true;
+    getItems() {
+      this.isLoading = true;
       api
-        .get(url)
+        .get("api/item", {
+          params: {
+            page: this.pagination.currentPage,
+            per_page: this.pagination.perPage,
+          },
+        })
         .then((resp) => {
-          const {
-            data,
-            first_page_url,
-            prev_page_url,
-            next_page_url,
-          } = resp.data;
+          const { data, current_page, total, per_page } = resp.data;
           this.items = data;
           this.pagination = {
-            nextPage: next_page_url,
-            firstPage: first_page_url,
-            previousPage: prev_page_url,
+            rows: total,
+            perPage: per_page,
+            currentPage: current_page,
           };
         })
         .finally(() => {
-          this.isBusy = false;
+          this.isLoading = false;
         });
     },
   },
 };
 </script>
+<style scoped>
+.per-page {
+  float: right;
+  max-width: 70px;
+  border-radius: 30px;
+  margin-bottom: 0.5rem;
+}
+</style>
