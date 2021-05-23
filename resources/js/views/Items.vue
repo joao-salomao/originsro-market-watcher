@@ -5,7 +5,12 @@
         <img width="30" height="30" :src="item.icon" />
       </template>
       <template #cell(action)="{ item }">
-        <b-button @click="onClickCreateItemAlert(item)">Watch item</b-button>
+        <b-button
+          size="sm"
+          variant="primary"
+          @click="onClickCreateItemAlert(item)"
+          >Create Alert</b-button
+        >
       </template>
     </b-table>
     <AlertForm
@@ -74,7 +79,7 @@ export default {
         },
         {
           key: "action",
-          label: "Acit",
+          label: "Actions",
           thClass: "text-center",
           tdClass: "text-center",
         },

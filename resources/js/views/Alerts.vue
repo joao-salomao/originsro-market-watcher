@@ -20,7 +20,9 @@
           >
             Show Matches
           </b-button>
-          <b-button size="sm" @click="onClickEdit(item)"> Edit </b-button>
+          <b-button size="sm" @click="onClickEditAlert(props.item)">
+            Edit
+          </b-button>
           <b-button
             size="sm"
             variant="danger"
@@ -56,11 +58,22 @@
         </b-card>
       </template>
     </b-table>
+    <AlertForm
+      :show="form.show"
+      :data="form.data"
+      :isSubmitting="form.isSubmitting"
+      @submit="onSubmitAlert"
+      @cancel="onCancelAlertEdit"
+    />
   </div>
 </template>
 <script>
 import api from "axios";
+import AlertForm from "./components/AlertForm";
 export default {
+  components: {
+    AlertForm,
+  },
   data() {
     return {
       fields: [
@@ -103,12 +116,47 @@ export default {
       ],
       isBusy: false,
       alerts: [],
+      form: {
+        data: {},
+        show: false,
+        isSubmitting: false,
+      },
     };
   },
   mounted() {
     this.getAlerts();
   },
   methods: {
+    onSubmitAlert(data) {
+      this.form.isSubmitting = true;
+      const { max_price, alert } = data;
+
+      api
+        .put(`api/alert/${alert.id}`, { max_price })
+        .then(({ data }) => {
+          if (data.updated) {
+            alert.max_price = max_price;
+          }
+        })
+        .finally(() => {
+          this.form.isSubmitting = false;
+          this.form.show = false;
+        });
+    },
+    onCancelAlertEdit() {
+      this.form.show = false;
+    },
+    onClickEditAlert(alert) {
+      this.setFormData(alert);
+      this.form.show = true;
+    },
+    setFormData(alert) {
+      this.form.data = {
+        alert,
+        ...alert.item,
+        max_price: alert.max_price,
+      };
+    },
     onClickDelete(item) {
       item.isDeleting = true;
       api.delete(`api/alert/${item.id}`).finally(() => {
