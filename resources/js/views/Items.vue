@@ -11,6 +11,7 @@
         striped
         bordered
         show-empty
+        responsive
         :items="items"
         :fields="fields"
         :busy="isLoading"

@@ -1,6 +1,15 @@
 <template>
   <div>
-    <b-table hover :busy="isBusy" :items="alerts" :fields="fields">
+    <b-table
+      hover
+      striped
+      bordered
+      show-empty
+      responsive
+      :busy="isBusy"
+      :items="alerts"
+      :fields="fields"
+    >
       <template #cell(icon)="{ item }">
         <img width="30" height="30" :src="item.item.icon" />
       </template>
@@ -14,16 +23,18 @@
         <div>
           <b-button
             v-if="props.item.matches.length"
+            pill
             size="sm"
             variant="primary"
             @click="props.toggleDetails"
           >
             Show Matches
           </b-button>
-          <b-button size="sm" @click="onClickEditAlert(props.item)">
+          <b-button pill size="sm" @click="onClickEditAlert(props.item)">
             Edit
           </b-button>
           <b-button
+            pill
             size="sm"
             variant="danger"
             @click="onClickDelete(props.item)"

@@ -18,10 +18,14 @@
         </b-form-input>
       </b-form-group>
       <div class="d-flex justify-content-end">
-        <b-button class="mr-2" :disabled="isSubmitting" @click="onClickCancel"
+        <b-button
+          pill
+          class="mr-2"
+          :disabled="isSubmitting"
+          @click="onClickCancel"
           >Cancel</b-button
         >
-        <b-button type="submit" variant="primary" :disabled="isSubmitting">
+        <b-button pill type="submit" variant="primary" :disabled="isSubmitting">
           <b-spinner small v-if="isSubmitting" />
           <span v-else>Submit</span>
         </b-button>
