@@ -20,9 +20,9 @@ class SearchMarket extends Command
 
     public function handle()
     {
-        $shops = json_decode(file_get_contents(storage_path() . '\market.json'), true)['shops'];
-        // $shops =   (new OriginsRoApiClient)->getMarketShops();
+        // $shops = json_decode(file_get_contents(storage_path() . '\market.json'), true)['shops'];
         $alerts = Alert::all();
+        $shops = (new OriginsRoApiClient)->getMarketShops();
 
         foreach ($alerts as $alert) {
             $this->checkAlertMatch($alert, $shops);
