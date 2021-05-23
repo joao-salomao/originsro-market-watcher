@@ -5,45 +5,16 @@
         <img width="30" height="30" :src="item.icon" />
       </template>
       <template #cell(action)="{ item }">
-        <b-button @click="onClickWatchItem(item)">Watch item</b-button>
+        <b-button @click="onClickCreateItemAlert(item)">Watch item</b-button>
       </template>
     </b-table>
-    <b-modal
-      ref="modal"
-      size="md"
-      centered
-      hideFooter
-      hideHeader
-      :noCloseOnEsc="form.isSubmitting"
-      :noCloseOnBackdrop="form.isSubmitting"
-    >
-      <b-form @submit.prevent="onSubmitWatch">
-        <div class="d-flex justify-content-center p-2">
-          <h5 class="mr-2">{{ form.name }}</h5>
-          <img width="30" height="30" :src="form.icon" />
-        </div>
-        <b-form-group label="Max price">
-          <b-form-input required v-model="form.max_price" type="number">
-          </b-form-input>
-        </b-form-group>
-        <div class="d-flex justify-content-end">
-          <b-button
-            class="mr-2"
-            :disabled="form.isSubmitting"
-            @click="onClickCancelWatch"
-            >Cancel</b-button
-          >
-          <b-button
-            type="submit"
-            variant="primary"
-            :disabled="form.isSubmitting"
-          >
-            <b-spinner small v-if="form.isSubmitting" />
-            <span v-else>Submit</span>
-          </b-button>
-        </div>
-      </b-form>
-    </b-modal>
+    <AlertForm
+      :show="form.show"
+      :data="form.data"
+      :isSubmitting="form.isSubmitting"
+      @submit="onSubmitAlert"
+      @cancel="onCancelAlertCreation"
+    />
     <div class="d-flex justify-content-center">
       <b-button-group>
         <b-button @click="onClickPaginationAction(firstPageUrl)"
@@ -59,16 +30,23 @@
 </template>
 <script>
 import api from "axios";
+import AlertForm from "./components/AlertForm";
 export default {
+  components: {
+    AlertForm,
+  },
   data() {
     return {
-      form: {},
+      form: {
+        data: {},
+        show: false,
+        isSubmitting: false,
+      },
       items: [],
       isBusy: false,
       nextPageUrl: null,
       firstPageUrl: null,
       previousPageUrl: null,
-      fields: ["item_id", "icon", "name", "npc_price", "action"],
       fields: [
         {
           key: "item_id",
@@ -107,23 +85,23 @@ export default {
     this.getItems();
   },
   methods: {
-    onSubmitWatch() {
+    onSubmitAlert(data) {
       this.form.isSubmitting = true;
-      const { max_price, id } = this.form;
+      const { max_price, id } = data;
       api.post("api/alert", { max_price, item_id: id }).finally(() => {
         this.form.isSubmitting = false;
-        this.$refs["modal"].hide();
+        this.form.show = false;
       });
     },
-    onClickCancelWatch() {
-      this.$refs["modal"].hide();
+    onCancelAlertCreation() {
+      this.form.show = false;
     },
-    onClickWatchItem(item) {
+    onClickCreateItemAlert(item) {
       this.setFormData(item);
-      this.$refs["modal"].show();
+      this.form.show = true;
     },
     setFormData(item) {
-      this.form = {
+      this.form.data = {
         ...item,
         max_price: null,
         isSubmitting: false,
