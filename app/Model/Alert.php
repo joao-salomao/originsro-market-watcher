@@ -13,7 +13,7 @@ class Alert extends Model
 
     public function matches()
     {
-        return $this->belongsTo(AlertMatch::class);
+        return $this->hasMany(AlertMatch::class);
     }
 
     public function item()
