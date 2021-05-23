@@ -9,7 +9,8 @@ class ItemController extends Controller
 {
     public function index(Request $request)
     {
-        $items = Item::simplePaginate(10);
+        $perPage = $request->get('per_page', 10);
+        $items = Item::orderBy('item_id', 'asc')->paginate($perPage);
         return response($items);
     }
 }
