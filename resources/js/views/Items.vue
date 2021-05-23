@@ -33,7 +33,6 @@
       </div>
       <b-table
         hover
-        striped
         bordered
         show-empty
         responsive

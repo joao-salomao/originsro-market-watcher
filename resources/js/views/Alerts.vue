@@ -2,7 +2,6 @@
   <div>
     <b-table
       hover
-      striped
       bordered
       show-empty
       responsive
@@ -28,7 +27,7 @@
             variant="primary"
             @click="props.toggleDetails"
           >
-            Show Matches
+            {{ props.toggleDetails ? "Hide Matches" : "Show Matches" }}
           </b-button>
           <b-button pill size="sm" @click="onClickEditAlert(props.item)">
             Edit
