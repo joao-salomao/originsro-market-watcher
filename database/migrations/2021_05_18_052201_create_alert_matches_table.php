@@ -13,6 +13,7 @@ class CreateAlertMatchesTable extends Migration
             $table->bigInteger('alert_id');
             $table->text("shop_name");
             $table->text("owner_name");
+            $table->integer('amount');
             $table->text("map");
             $table->integer("location_x");
             $table->integer("location_y");

@@ -48,6 +48,7 @@
           <b-row class="font-weight-bold">
             <b-col> Shop name </b-col>
             <b-col> Owner name </b-col>
+            <b-col>Amount</b-col>
             <b-col> Map </b-col>
             <b-col> Location </b-col>
           </b-row>
@@ -55,8 +56,12 @@
             <b-col>
               {{ match.shop_name }}
             </b-col>
+
             <b-col>
               {{ match.owner_name }}
+            </b-col>
+            <b-col>
+              {{ match.amount }}
             </b-col>
             <b-col>
               {{ match.map }}
@@ -194,3 +199,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+.col {
+    text-align: center;
+}
+</style>
