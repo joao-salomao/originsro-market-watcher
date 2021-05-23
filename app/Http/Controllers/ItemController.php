@@ -9,7 +9,7 @@ class ItemController extends Controller
 {
     public function index(Request $request)
     {
-        $items = Item::simplePaginate(50);
+        $items = Item::simplePaginate(10);
         return response($items);
     }
 }
