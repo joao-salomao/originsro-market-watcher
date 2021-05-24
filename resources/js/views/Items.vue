@@ -23,6 +23,15 @@
               size="sm"
             />
           </div>
+          <div class="mr-2">
+            <span>Type:</span>
+            <b-form-select
+              v-model="filters.type"
+              size="sm"
+              class="input"
+              :options="categories"
+            />
+          </div>
           <b-form-select
             size="sm"
             class="per-page"
@@ -95,9 +104,58 @@ export default {
       filters: {
         name: null,
         itemId: null,
+        type: null,
       },
       perPageOptions: [10, 15, 30, 50, 100, 200],
+      categories: [
+        {
+          value: "IT_HEALING",
+          text: "Healing",
+        },
+        {
+          value: "IT_DELAYCONSUME",
+          text: "Delay Consume",
+        },
 
+        {
+          value: "IT_USABLE",
+          text: "Usable",
+        },
+
+        {
+          value: "IT_ETC",
+          text: "Etc",
+        },
+        {
+          value: "IT_WEAPON",
+          text: "Weapon",
+        },
+        {
+          value: "IT_AMMO",
+          text: "Ammo",
+        },
+        {
+          value: "IT_ARMOR",
+          text: "Armor",
+        },
+
+        {
+          value: "IT_CARD",
+          text: "Card",
+        },
+        {
+          value: "IT_PETEGG",
+          text: "Pet Egg",
+        },
+        {
+          value: "IT_PETARMOR",
+          text: "Pet Armor",
+        },
+        {
+          value: "IT_CASH",
+          text: "Cash Shop Reward",
+        },
+      ],
       fields: [
         {
           key: "item_id",
@@ -150,6 +208,7 @@ export default {
     requestParams() {
       return {
         name: this.filters.name,
+        type: this.filters.type,
         item_id: this.filters.itemId,
         page: this.pagination.currentPage,
         per_page: this.pagination.perPage,

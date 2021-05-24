@@ -11,7 +11,7 @@ class ItemController extends Controller
     {
         $query = Item::orderBy('item_id', 'asc');
 
-        foreach (['name', 'item_id'] as $filterKey) {
+        foreach (['name', 'item_id', 'type'] as $filterKey) {
             $filterValue = $request->get($filterKey, null);
             $isNotEmpty = !empty($filterValue);
             if ($isNotEmpty) {
