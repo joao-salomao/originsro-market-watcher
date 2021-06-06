@@ -4,6 +4,7 @@ import api from './api'
 export default new Vue({
     data: {
         user: {
+            data: null,
             isLoading: true,
             isAuthenticated: localStorage.getItem('token') !== null
         }
@@ -19,7 +20,7 @@ export default new Vue({
             api.get('api/user/current').then(resp => {
                 this.user = {
                     ...this.user,
-                    ...resp.data
+                    data: resp.data
                 }
             })
                 .finally(() => {
