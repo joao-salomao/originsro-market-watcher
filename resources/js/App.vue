@@ -9,7 +9,9 @@
         <b-nav-item to="/alerts" exact exact-active-class="active"
           >Alerts</b-nav-item
         >
-        <b-nav-item to="/profile" align="right" exact exact-active-class="active"
+      </b-navbar-nav>
+      <b-navbar-nav class="ml-auto">
+        <b-nav-item to="/profile" exact exact-active-class="active"
           >Perfil</b-nav-item
         >
       </b-navbar-nav>
