@@ -30,16 +30,13 @@
             </b-input-group-append>
           </b-input-group>
         </b-form-group>
-        <b-button
-          pill
-          type="submit"
-          variant="primary"
-          class="float-right"
-          :disabled="isLoading"
-        >
-          <b-spinner small v-if="isLoading" />
-          <span v-else>Login</span>
-        </b-button>
+        <div class="float-right">
+          <b-button pill @click="onClickRegister"> Register </b-button>
+          <b-button pill type="submit" variant="primary" :disabled="isLoading">
+            <b-spinner small v-if="isLoading" />
+            <span v-else>Login</span>
+          </b-button>
+        </div>
       </b-form>
     </b-card>
   </div>
@@ -59,6 +56,9 @@ export default {
     };
   },
   methods: {
+    onClickRegister() {
+      this.$router.push("/register");
+    },
     toggleShowPassword() {
       this.showPassword = !this.showPassword;
     },
