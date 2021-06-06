@@ -31,7 +31,7 @@
           </b-input-group>
         </b-form-group>
         <div class="float-right">
-          <b-button pill @click="onClickRegister"> Register </b-button>
+          <!-- <b-button pill @click="onClickRegister"> Register </b-button> -->
           <b-button pill type="submit" variant="primary" :disabled="isLoading">
             <b-spinner small v-if="isLoading" />
             <span v-else>Login</span>

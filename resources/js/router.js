@@ -19,11 +19,11 @@ const router = new VueRouter({
             component: Items,
             meta: { requiresAuth: true }
         },
-        {
-            path: '/register',
-            name: 'Register',
-            component: Register
-        },
+        // {
+        //     path: '/register',
+        //     name: 'Register',
+        //     component: Register
+        // },
         {
             path: '/alerts',
             name: 'Alerts',
