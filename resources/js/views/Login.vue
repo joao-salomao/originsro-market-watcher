@@ -3,6 +3,10 @@
   min-width: 500px;
   padding: 1.25em;
 }
+
+.toggle-password {
+  border-radius: 0 30px 30px 0;
+}
 </style>
 <template>
   <div class="d-flex justify-content-center">
@@ -19,7 +23,7 @@
               :type="showPassword ? 'text' : 'password'"
             />
             <b-input-group-append>
-              <b-button @click="toggleShowPassword">
+              <b-button class="toggle-password" @click="toggleShowPassword">
                 <b-icon v-if="showPassword" icon="eye" />
                 <b-icon v-else icon="eye-slash" />
               </b-button>
@@ -70,8 +74,13 @@ export default {
         })
         .then(({ data }) => {
           const { token_type, access_token } = data;
-          store.user.token = `${token_type} ${access_token}`;
-          this.$router.replace("/items");
+          const token = `${token_type} ${access_token}`;
+
+          store.user.isAuthenticated = true;
+          localStorage.setItem("token", token);
+          api.defaults.headers["Authorization"] = token;
+
+          this.$router.push("/items");
         })
         .finally(() => {
           this.isLoading = false;
