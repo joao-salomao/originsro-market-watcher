@@ -28,6 +28,8 @@ const router = new VueRouter({
 router.beforeEach((to, _, next) => {
     if (to.name !== 'Login' && !store.user.isAuthenticated) {
         next({ name: 'Login' })
+    } else if (to.name === 'Login' && store.user.isAuthenticated) {
+        next({ name: 'Items' })
     } else {
         next()
     }
