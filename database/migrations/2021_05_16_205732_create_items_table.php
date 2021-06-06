@@ -14,6 +14,8 @@ class CreateItemsTable extends Migration
             $table->text("unique_name");
             $table->text("name");
             $table->text("type");
+            $table->text("subtype")->nullable();
+            $table->integer('slots')->nullable();
             $table->double("npc_price");
             $table->longText("icon")->nullable();
             $table->timestamps();

@@ -11,6 +11,8 @@ class Item extends Model
         'unique_name',
         'name',
         'type',
+        'subtype',
+        'slots',
         'npc_price',
         'icon'
     ];
