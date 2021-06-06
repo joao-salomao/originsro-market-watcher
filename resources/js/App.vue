@@ -1,14 +1,19 @@
 <template>
   <div>
-    <h1 class="text-center">Ragnarok Market Watch</h1>
-    <b-nav v-if="showNavBar" class="nav-bar" tabs align="center">
-      <b-nav-item to="/items" exact exact-active-class="active"
-        >Items</b-nav-item
-      >
-      <b-nav-item to="/alerts" exact exact-active-class="active"
-        >Alerts</b-nav-item
-      >
-    </b-nav>
+    <b-navbar v-if="showNavBar" type="dark" variant="dark">
+      <b-navbar-brand>Ragnarok Market Watch</b-navbar-brand>
+      <b-navbar-nav>
+        <b-nav-item to="/items" exact exact-active-class="active"
+          >Items</b-nav-item
+        >
+        <b-nav-item to="/alerts" exact exact-active-class="active"
+          >Alerts</b-nav-item
+        >
+        <b-nav-item to="/profile" align="right" exact exact-active-class="active"
+          >Perfil</b-nav-item
+        >
+      </b-navbar-nav>
+    </b-navbar>
     <div class="p-4">
       <router-view></router-view>
     </div>
@@ -26,10 +31,6 @@ export default {
 </script>
 <style lang="scss">
 @import "./sass/app.scss";
-.nav-bar {
-  font-size: 20px;
-}
-
 body {
   background-color: white;
 }

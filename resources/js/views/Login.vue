@@ -80,6 +80,7 @@ export default {
           localStorage.setItem("token", token);
           api.defaults.headers["Authorization"] = token;
 
+          store.getUser();
           this.$router.push("/items");
         })
         .finally(() => {
