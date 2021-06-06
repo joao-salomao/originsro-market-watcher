@@ -2,8 +2,9 @@ import VueRouter from 'vue-router'
 import Login from './views/Login'
 import Items from './views/Items'
 import Alerts from './views/Alerts'
+import store from './services/store'
 
-export default new VueRouter({
+const router = new VueRouter({
     mode: 'history',
     routes: [
         {
@@ -23,3 +24,15 @@ export default new VueRouter({
         }
     ],
 })
+
+router.beforeEach((to, _, next) => {
+    if (to.name !== 'Login' && !store.user.isAuthenticated) {
+        next({ name: 'Login' })
+    } else {
+        next()
+    }
+})
+
+
+export default router
+
