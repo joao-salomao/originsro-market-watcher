@@ -14,5 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('item', 'ItemController@index');
-Route::resource('alert', AlertController::class);
+Route::middleware('auth:api')->group(function () {
+    Route::get('item', 'ItemController@index');
+    Route::resource('alert', AlertController::class);
+});
