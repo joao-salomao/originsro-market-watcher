@@ -11,9 +11,12 @@
         >
       </b-navbar-nav>
       <b-navbar-nav class="ml-auto">
-        <b-nav-item to="/profile" exact exact-active-class="active"
-          >Perfil</b-nav-item
-        >
+        <b-nav-item-dropdown text="User" right>
+          <b-dropdown-item @click="$router.push('/profile')"
+            >Profile</b-dropdown-item
+          >
+          <b-dropdown-item @click="signOut">Sign Out</b-dropdown-item>
+        </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-navbar>
     <div class="p-4">
@@ -24,6 +27,12 @@
 <script>
 import store from "./services/store";
 export default {
+  methods: {
+    signOut() {
+      store.clearUser();
+      this.$router.push("/login");
+    },
+  },
   computed: {
     showNavBar() {
       return store.user.isAuthenticated;
