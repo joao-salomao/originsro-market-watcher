@@ -2,7 +2,7 @@ import VueRouter from 'vue-router'
 import Login from './views/Login'
 import Items from './views/Items'
 import Alerts from './views/Alerts'
-import Register from './views/Register'
+// import Register from './views/Register'
 import store from './services/store'
 
 const router = new VueRouter({
