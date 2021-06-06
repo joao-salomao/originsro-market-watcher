@@ -81,7 +81,7 @@
   </div>
 </template>
 <script>
-import api from "axios";
+import api from "../services/api";
 import AlertForm from "./components/AlertForm";
 export default {
   components: {

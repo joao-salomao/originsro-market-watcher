@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="text-center">Ragnarok Market Watch</h1>
-    <b-nav class="nav-bar" tabs align="center">
+    <b-nav v-if="showNavBar" class="nav-bar" tabs align="center">
       <b-nav-item to="/" exact exact-active-class="active">Items</b-nav-item>
       <b-nav-item to="/alerts" exact exact-active-class="active"
         >Alerts</b-nav-item
@@ -12,6 +12,16 @@
     </div>
   </div>
 </template>
+<script>
+import store from "./services/store";
+export default {
+  computed: {
+    showNavBar() {
+      return store.user.isAuthenticated;
+    },
+  },
+};
+</script>
 <style lang="scss">
 @import "./sass/app.scss";
 .nav-bar {
@@ -19,6 +29,6 @@
 }
 
 #app {
-    background-color: white;
+  background-color: white;
 }
 </style>
