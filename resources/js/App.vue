@@ -28,7 +28,7 @@ export default {
   font-size: 20px;
 }
 
-#app {
+body {
   background-color: white;
 }
 </style>
