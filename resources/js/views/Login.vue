@@ -1,29 +1,80 @@
+<style lang="css">
+.form-card {
+  min-width: 500px;
+  padding: 1.25em;
+}
+</style>
 <template>
-  <div>
-    <h1>LOGIN</h1>
-    <button @click="auth">Login</button>
+  <div class="d-flex justify-content-center">
+    <b-card no-body class="form-card">
+      <b-form @submit.prevent="auth">
+        <b-form-group label="Email">
+          <b-form-input type="email" v-model="form.email" required />
+        </b-form-group>
+        <b-form-group label="Password">
+          <b-input-group>
+            <b-form-input
+              required
+              v-model="form.password"
+              :type="showPassword ? 'text' : 'password'"
+            />
+            <b-input-group-append>
+              <b-button @click="toggleShowPassword">
+                <b-icon v-if="showPassword" icon="eye" />
+                <b-icon v-else icon="eye-slash" />
+              </b-button>
+            </b-input-group-append>
+          </b-input-group>
+        </b-form-group>
+        <b-button
+          pill
+          type="submit"
+          variant="primary"
+          class="float-right"
+          :disabled="isLoading"
+        >
+          <b-spinner small v-if="isLoading" />
+          <span v-else>Login</span>
+        </b-button>
+      </b-form>
+    </b-card>
   </div>
 </template>
 <script>
 import api from "../services/api";
 import store from "../services/store";
 export default {
+  data() {
+    return {
+      isLoading: false,
+      showPassword: false,
+      form: {
+        email: "teste@teste.com",
+        password: "1234",
+      },
+    };
+  },
   methods: {
+    toggleShowPassword() {
+      this.showPassword = !this.showPassword;
+    },
     auth() {
+      this.isLoading = true;
       api
         .post("/oauth/token", {
           client_id: "2",
           grant_type: "password",
-          password: "1234",
-          username: "teste@teste.com",
+          username: this.form.email,
+          password: this.form.password,
           client_secret: "7BLSkwTZL3ydEQlQZDjfTvuHPyrOjFeHJNZkt0ZP",
         })
         .then(({ data }) => {
           const { token_type, access_token } = data;
-          const token = `${token_type} ${access_token}`;
-          localStorage.setItem("token", token);
-          api.defaults.headers.common["Authorization"] = token;
-          store.user.isAuthenticated = true;
+          store.user.token = `${token_type} ${access_token}`;
+          this.$router.replace("/items");
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
     },
   },
