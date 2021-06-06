@@ -7,7 +7,6 @@
             <span>Item ID:</span>
             <b-form-input
               v-model="filters.itemId"
-              class="input"
               type="number"
               debounce="1000"
               size="sm"
@@ -17,7 +16,6 @@
             <span>Name:</span>
             <b-form-input
               v-model="filters.name"
-              class="input"
               type="text"
               debounce="1000"
               size="sm"
@@ -28,7 +26,6 @@
             <b-form-select
               v-model="filters.type"
               size="sm"
-              class="input"
               :options="categories"
             />
           </div>
@@ -276,10 +273,6 @@ export default {
   align-self: flex-end;
   float: right;
   max-width: 70px;
-  border-radius: 30px;
-}
-
-.input {
   border-radius: 30px;
 }
 </style>
