@@ -18,7 +18,7 @@ export default new Vue({
         clearUser() {
             this.user.data = null
             this.user.isAuthenticated = null
-            localStorage.setItem('token', null)
+            localStorage.clear()
         },
         getUser() {
             this.user.isLoading = true
