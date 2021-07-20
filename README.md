@@ -35,7 +35,10 @@ Como executar a aplicação:
 10. Execute o servidor web de desenvolvimento:
    php artisan serve
 
-11. Realize o login usando o usuário padrão com as seguintes credenciais:
+11. Em um segundo terminal, execute o cron de desenvolvimento:
+   npm run cron
+
+12. Realize o login usando o usuário padrão com as seguintes credenciais:
    e-mail => teste@teste.com
    Senha  => 1234
 
