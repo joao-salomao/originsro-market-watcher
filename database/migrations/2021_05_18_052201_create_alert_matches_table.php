@@ -10,7 +10,7 @@ class CreateAlertMatchesTable extends Migration
     {
         Schema::create('alert_matches', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('alert_id');
+            $table->bigInteger('alert_id')->unsigned();
             $table->text("shop_name");
             $table->text("owner_name");
             $table->integer('amount');
