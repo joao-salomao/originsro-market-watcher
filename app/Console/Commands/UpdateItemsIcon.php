@@ -36,7 +36,7 @@ class UpdateItemsIcon extends Command
 
     private function getIconsFromBackup(): array
     {
-        $path = storage_path() . '\icons.json';
+        $path = storage_path() . '/icons.json';
         $content = file_get_contents($path);
         $data = json_decode($content, true);
         return $data['icons'];

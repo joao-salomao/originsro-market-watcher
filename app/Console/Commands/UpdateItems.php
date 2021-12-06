@@ -35,7 +35,7 @@ class UpdateItems extends Command
 
     private function getItemsFromBackup(): array
     {
-        $path = storage_path() . '\items.json';
+        $path = storage_path() . '/items.json';
         $content = file_get_contents($path);
         $data = json_decode($content, true);
         return $data['items'];
