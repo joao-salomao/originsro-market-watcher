@@ -25,7 +25,7 @@ jobs:
         cd api
         touch database/database.sqlite
         php -r "file_exists('.env') || copy('.env.example', '.env');"
+        composer install --prefer-dist
         php artisan key:generate
         chmod -R 777 storage bootstrap/cache
-        composer install --prefer-dist
         vendor/bin/phpunit --testdox
