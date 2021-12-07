@@ -9,18 +9,19 @@ class ItemController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Item::orderBy('item_id', 'asc');
+        $query = Item::query();
 
-        foreach (['name', 'item_id', 'type'] as $filterKey) {
-            $filterValue = $request->get($filterKey, null);
-            $isNotEmpty = !empty($filterValue);
-            if ($isNotEmpty) {
-                $query->where($filterKey, 'like', '%' . $filterValue . '%');
+        foreach (['name', 'item_id', 'type'] as $key) {
+            $filterValue = $request->get($key);
+
+            if (isset($filterValue)) {
+                $query->where($key, 'like', '%' . $filterValue . '%');
             }
         }
 
         $perPage = $request->get('per_page', 10);
         $items = $query->paginate($perPage);
+
         return response($items);
     }
 }
