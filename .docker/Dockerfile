@@ -1,3 +1,22 @@
+### Build Stage
+FROM node:12-alpine AS build-front-end-stage
+
+WORKDIR /var/www/html
+
+# Copy all source files
+COPY . .
+
+# Install front-end dependencies
+RUN npm install
+
+# Build front-end
+RUN npm run production
+
+# Remove unecessary files
+RUN rm -rf node_modules
+
+#######
+
 FROM php:7.4.1-apache
 
 USER root
@@ -16,19 +35,14 @@ RUN apt-get update && apt-get install -y \
     unzip \
     && docker-php-ext-configure gd \
     && docker-php-ext-install -j$(nproc) gd \
-    && docker-php-ext-install pdo_mysql \
     && docker-php-ext-install zip \
     && docker-php-source delete
-
-# Install Node
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
-RUN apt-get install -y nodejs
 
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Copy all source files
-COPY . .
+# Copy files from build stage
+COPY --from=build-front-end-stage /var/www/html /var/www/html
 
 # Copy Apache VHost config file
 COPY .docker/vhost.conf /etc/apache2/sites-available/000-default.conf
@@ -36,23 +50,14 @@ COPY .docker/vhost.conf /etc/apache2/sites-available/000-default.conf
 # Setup .env file
 RUN mv .env.example .env
 
-# Create database file
-RUN touch database/database.sqlite
+# Move database file
+RUN mv .docker/database.sqlite database/database.sqlite
 
-# Install dependencies
+# Install API dependencies
 RUN composer install
-
-# Install front-end dependencies
-RUN npm install
-
-# Migrate database
-RUN php artisan migrate --seed
 
 # Generate Application Key
 RUN php artisan key:generate
-
-# Build front-end
-RUN npm run production
 
 RUN chown -R www-data:www-data /var/www/html \
     && a2enmod rewrite
