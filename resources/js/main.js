@@ -13,8 +13,14 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
 Vue.use(VueRouter)
 Vue.use(CompositionAPI)
-Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
+Vue.use(BootstrapVue, {
+    BToast: {
+        solid: true,
+        toaster: "b-toaster-top-right",
+    }
+})
+
 
 /**
  * The following block of code may be used to automatically register your

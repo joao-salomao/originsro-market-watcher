@@ -1,6 +1,6 @@
 import VueRouter from 'vue-router'
 import Login from './views/Login'
-import Items from './views/Items'
+import Items from './views/Items/List'
 import Alerts from './views/Alerts'
 import RoutesAPI from './views/RoutesAPI'
 // import Register from './views/Register'

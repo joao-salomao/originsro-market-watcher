@@ -172,12 +172,36 @@ export default {
         max_price: alert.max_price,
       };
     },
-    onClickDelete(item) {
-      item.isDeleting = true;
-      http.deleteAlert(item.i).finally(() => {
-        item.isDeleting = false;
-        this.alerts = this.alerts.filter((i) => i != item);
+    onClickDelete(alert) {
+      alert.isDeleting = true;
+
+      http
+        .deleteAlert(alert.id)
+        .then(() => {
+          this.showSuccessToast();
+          this.remoteAlert(alert);
+        })
+        .catch(() => {
+          this.showErrorToast();
+        })
+        .finally(() => {
+          alert.isDeleting = false;
+        });
+    },
+    showSuccessToast() {
+      this.$bvToast.toast(`The alert was deleted successfully.`, {
+        title: "Success!",
+        variant: "success",
       });
+    },
+    showErrorToast() {
+      this.$bvToast.toast(`Something goes wrong. Try again.`, {
+        title: "Error!",
+        variant: "danger",
+      });
+    },
+    remoteAlert(item) {
+      this.alerts = this.alerts.filter((i) => i != item);
     },
     getAlerts() {
       this.isBusy = true;

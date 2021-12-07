@@ -66,7 +66,6 @@ export default {
         this.isLoading = true;
 
         const resp = await http.login(this.form.email, this.form.password);
-
         const { token_type, access_token } = resp.data;
         const token = `${token_type} ${access_token}`;
 
