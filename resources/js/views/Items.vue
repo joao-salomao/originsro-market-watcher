@@ -78,7 +78,7 @@
   </div>
 </template>
 <script>
-import api from "../services/api";
+import http from "../services/http";
 import AlertForm from "./components/AlertForm";
 export default {
   components: {
@@ -219,7 +219,7 @@ export default {
     onSubmitAlert(data) {
       this.form.isSubmitting = true;
       const { max_price, id } = data;
-      api.post("api/alert", { max_price, item_id: id }).finally(() => {
+      http.post("api/alert", { max_price, item_id: id }).finally(() => {
         this.form.isSubmitting = false;
         this.form.show = false;
       });
@@ -240,7 +240,7 @@ export default {
     },
     getItems() {
       this.isLoading = true;
-      api
+      http
         .get("api/item", {
           params: {
             ...this.requestParams,

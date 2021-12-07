@@ -83,7 +83,7 @@
   </div>
 </template>
 <script>
-import api from "../services/api";
+import http from "../services/http";
 import AlertForm from "./components/AlertForm";
 export default {
   components: {
@@ -146,7 +146,7 @@ export default {
       this.form.isSubmitting = true;
       const { max_price, alert } = data;
 
-      api
+      http
         .put(`api/alert/${alert.id}`, { max_price })
         .then(({ data }) => {
           if (data.updated) {
@@ -174,14 +174,14 @@ export default {
     },
     onClickDelete(item) {
       item.isDeleting = true;
-      api.delete(`api/alert/${item.id}`).finally(() => {
+      http.delete(`api/alert/${item.id}`).finally(() => {
         item.isDeleting = false;
         this.alerts = this.alerts.filter((i) => i != item);
       });
     },
     getAlerts() {
       this.isBusy = true;
-      api
+      http
         .get("api/alert")
         .then((resp) => {
           this.alerts = resp.data.map((i) => {

@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import api from './api'
+import http from './http'
 
 export default new Vue({
     data: {
@@ -22,7 +22,7 @@ export default new Vue({
         },
         getUser() {
             this.user.isLoading = true
-            api.get('api/user/current').then(resp => {
+            http.get('api/user/current').then(resp => {
                 this.user = {
                     ...this.user,
                     data: resp.data

@@ -42,7 +42,7 @@
   </div>
 </template>
 <script>
-import api from "../services/api";
+import http from "../services/http";
 import store from "../services/store";
 export default {
   data() {
@@ -64,7 +64,7 @@ export default {
     },
     auth() {
       this.isLoading = true;
-      api
+      http
         .post("/oauth/token", {
           client_id: "2",
           grant_type: "password",
