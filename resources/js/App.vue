@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-navbar v-if="showNavBar" type="dark" variant="dark">
-      <b-navbar-brand>Ragnarok Market Watch</b-navbar-brand>
+      <b-navbar-brand>OriginsRO Market Watcher</b-navbar-brand>
       <b-navbar-nav>
         <b-nav-item to="/items" exact exact-active-class="active"
           >Items</b-nav-item
