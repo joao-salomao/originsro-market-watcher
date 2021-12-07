@@ -30,3 +30,10 @@ php artisan serve
 php artisan schedule:work
 ```
 
+## Tests
+Os testes implementados se encontram na pasta  [tests](https://github.com/joao-salomao/originsro-market-watcher/tree/main/api/tests)
+
+Para executa-los basta rodar o comando:
+```
+./vendor/bin/phpunit --testdox
+```
