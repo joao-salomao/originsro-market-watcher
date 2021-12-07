@@ -22,7 +22,7 @@ Execute a aplicação com o seguinte comando:
 docker-compose up
 ```
 
-### Manual:
+### Manualmente:
 
 [Front-end](https://github.com/joao-salomao/originsro-market-watcher/tree/main/front-end)
 
