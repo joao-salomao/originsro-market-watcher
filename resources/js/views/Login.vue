@@ -67,12 +67,13 @@ export default {
         const { token_type, access_token } = await this.auth();
         const token = `${token_type} ${access_token}`;
 
-        setAuthorizationHeader(token);
-        store.setIsAuthenticated(true);
         this.addTokenToLocalStorage(token);
+        setAuthorizationHeader();
+        store.setIsAuthenticated(true);
         store.getAuthUser();
         this.goToItemListPage();
       } catch (e) {
+          console.error(e)
       } finally {
         this.isLoading = false;
       }
