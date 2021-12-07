@@ -9,6 +9,9 @@
         <b-nav-item to="/alerts" exact exact-active-class="active"
           >Alerts</b-nav-item
         >
+        <b-nav-item to="/routes" exact exact-active-class="active"
+          >API Routes</b-nav-item
+        >
       </b-navbar-nav>
       <b-navbar-nav class="ml-auto">
         <b-nav-item-dropdown text="User" right>

@@ -2,6 +2,7 @@ import VueRouter from 'vue-router'
 import Login from './views/Login'
 import Items from './views/Items'
 import Alerts from './views/Alerts'
+import RoutesAPI from './views/RoutesAPI'
 // import Register from './views/Register'
 import store from './services/store'
 
@@ -10,12 +11,12 @@ const router = new VueRouter({
     routes: [
         {
             path: '/login',
-            name: 'Login',
+            name: 'login',
             component: Login
         },
         {
             path: '/items',
-            name: 'Items',
+            name: 'items',
             component: Items,
             meta: { requiresAuth: true }
         },
@@ -26,8 +27,14 @@ const router = new VueRouter({
         // },
         {
             path: '/alerts',
-            name: 'Alerts',
+            name: 'alerts',
             component: Alerts,
+            meta: { requiresAuth: true }
+        },
+        {
+            path: '/routes',
+            name: 'routes',
+            component: RoutesAPI,
             meta: { requiresAuth: true }
         }
     ],
@@ -35,9 +42,9 @@ const router = new VueRouter({
 
 router.beforeEach((to, _, next) => {
     if (to.matched.some(record => record.meta.requiresAuth) && !store.user.isAuthenticated) {
-        next({ name: 'Login' })
+        next({ name: 'login' })
     } else if (!to.name) {
-        next({ name: 'Items' })
+        next({ name: 'items' })
     } else {
         next()
     }

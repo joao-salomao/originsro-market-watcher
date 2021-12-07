@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +22,10 @@ Route::middleware('auth:api')->group(function () {
     Route::get('items', 'ItemController@index');
     Route::resource('alerts', AlertController::class);
 });
+
+Route::get('routes', [
+    'uses' => function () {
+        Artisan::call('route:list');
+        return Artisan::output();
+    }
+]);

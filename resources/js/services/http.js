@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const instance = axios.create()
 
-export default {
+const http = {
     login(email, password) {
         return instance
             .post("/oauth/token", {
@@ -15,6 +15,9 @@ export default {
     },
     getAuthUser() {
         return instance.get('api/users/current')
+    },
+    getApiRoutes() {
+        return instance.get("api/routes")
     },
     getItems(params) {
         return instance
@@ -40,3 +43,7 @@ export default {
         instance.defaults.headers["Authorization"] = token
     }
 }
+
+http.setAuthorizationHeader()
+
+export default http
