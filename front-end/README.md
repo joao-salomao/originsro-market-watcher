@@ -1,24 +1,28 @@
-# originsro-front-end
+## Setup
 
-## Project setup
+1. Instale as dependências
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+2. Configure as variáveis de ambiente
+```
+cp .env.example .env
+```
+
+3. Execute o servidor de desenvolvimento
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+
+## Build
+
 ```
 npm run build
 ```
 
-### Lints and fixes files
+## Lint
 ```
 npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
