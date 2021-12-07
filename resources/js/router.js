@@ -8,6 +8,7 @@ import store from './services/store'
 
 const router = new VueRouter({
     mode: 'history',
+    base: '/app',
     routes: [
         {
             path: '/login',

@@ -22,6 +22,6 @@ use Laravel\Socialite\Facades\Socialite;
 //     return Socialite::driver('discord')->stateless()->user()->getRaw();
 // });
 
-Route::get('/{any}', function () {
+Route::get('/', function () {
     return view('index');
-})->where('any', '.*');
+});
