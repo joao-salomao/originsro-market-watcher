@@ -11,16 +11,19 @@ export default new Vue({
     },
     created() {
         if (this.user.isAuthenticated) {
-            this.getUser()
+            this.getAuthUser()
         }
     },
     methods: {
+        setIsAuthenticated(value) {
+            this.user.isAuthenticated = value
+        },
         clearUser() {
             this.user.data = null
             this.user.isAuthenticated = null
             localStorage.clear()
         },
-        getUser() {
+        getAuthUser() {
             this.user.isLoading = true
             http.get('api/user/current').then(resp => {
                 this.user = {

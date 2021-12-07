@@ -11,7 +11,7 @@
 <template>
   <div class="d-flex justify-content-center">
     <b-card no-body class="form-card">
-      <b-form @submit.prevent="auth">
+      <b-form @submit.prevent="onClickLogin">
         <b-form-group label="Email">
           <b-form-input type="email" v-model="form.email" required />
         </b-form-group>
@@ -31,7 +31,6 @@
           </b-input-group>
         </b-form-group>
         <div class="float-right">
-          <!-- <b-button pill @click="onClickRegister"> Register </b-button> -->
           <b-button pill type="submit" variant="primary" :disabled="isLoading">
             <b-spinner small v-if="isLoading" />
             <span v-else>Login</span>
@@ -42,7 +41,7 @@
   </div>
 </template>
 <script>
-import http from "../services/http";
+import http, { setAuthorizationHeader } from "../services/http";
 import store from "../services/store";
 export default {
   data() {
@@ -62,9 +61,30 @@ export default {
     toggleShowPassword() {
       this.showPassword = !this.showPassword;
     },
+    async onClickLogin() {
+      try {
+        this.isLoading = true;
+        const { token_type, access_token } = await this.auth();
+        const token = `${token_type} ${access_token}`;
+
+        setAuthorizationHeader(token);
+        store.setIsAuthenticated(true);
+        this.addTokenToLocalStorage(token);
+        store.getAuthUser();
+        this.goToItemListPage();
+      } catch (e) {
+      } finally {
+        this.isLoading = false;
+      }
+    },
+    addTokenToLocalStorage(token) {
+      localStorage.setItem("token", token);
+    },
+    goToItemListPage() {
+      this.$router.push("/items");
+    },
     auth() {
-      this.isLoading = true;
-      http
+      return http
         .post("/oauth/token", {
           client_id: "2",
           grant_type: "password",
@@ -73,18 +93,7 @@ export default {
           client_secret: "7BLSkwTZL3ydEQlQZDjfTvuHPyrOjFeHJNZkt0ZP",
         })
         .then(({ data }) => {
-          const { token_type, access_token } = data;
-          const token = `${token_type} ${access_token}`;
-
-          store.user.isAuthenticated = true;
-          localStorage.setItem("token", token);
-          api.defaults.headers["Authorization"] = token;
-
-          store.getUser();
-          this.$router.push("/items");
-        })
-        .finally(() => {
-          this.isLoading = false;
+          return data;
         });
     },
   },
