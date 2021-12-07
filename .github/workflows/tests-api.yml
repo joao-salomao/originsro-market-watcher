@@ -28,4 +28,4 @@ jobs:
         composer install --prefer-dist
         php artisan key:generate
         chmod -R 777 storage bootstrap/cache
-        vendor/bin/phpunit --testdox
+        ./vendor/bin/phpunit --testdox
