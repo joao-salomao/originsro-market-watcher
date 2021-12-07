@@ -219,7 +219,7 @@ export default {
     onSubmitAlert(data) {
       this.form.isSubmitting = true;
       const { max_price, id } = data;
-      http.post("api/alerts", { max_price, item_id: id }).finally(() => {
+      http.createAlert({ max_price, item_id: id }).finally(() => {
         this.form.isSubmitting = false;
         this.form.show = false;
       });
@@ -241,11 +241,7 @@ export default {
     getItems() {
       this.isLoading = true;
       http
-        .get("api/items", {
-          params: {
-            ...this.requestParams,
-          },
-        })
+        .getItems(this.requestParams)
         .then((resp) => {
           const { data, current_page, total, per_page } = resp.data;
           this.items = data;

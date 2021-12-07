@@ -41,7 +41,7 @@
   </div>
 </template>
 <script>
-import http, { setAuthorizationHeader } from "../services/http";
+import http from "../services/http";
 import store from "../services/store";
 export default {
   data() {
@@ -64,16 +64,20 @@ export default {
     async onClickLogin() {
       try {
         this.isLoading = true;
-        const { token_type, access_token } = await this.auth();
+
+        const resp = await http.login(this.form.email, this.form.password);
+
+        const { token_type, access_token } = resp.data;
         const token = `${token_type} ${access_token}`;
 
         this.addTokenToLocalStorage(token);
-        setAuthorizationHeader();
+        http.setAuthorizationHeader();
         store.setIsAuthenticated(true);
         store.getAuthUser();
+
         this.goToItemListPage();
       } catch (e) {
-          console.error(e)
+        console.error(e);
       } finally {
         this.isLoading = false;
       }
@@ -83,19 +87,6 @@ export default {
     },
     goToItemListPage() {
       this.$router.push("/items");
-    },
-    auth() {
-      return http
-        .post("/oauth/token", {
-          client_id: "2",
-          grant_type: "password",
-          username: this.form.email,
-          password: this.form.password,
-          client_secret: "7BLSkwTZL3ydEQlQZDjfTvuHPyrOjFeHJNZkt0ZP",
-        })
-        .then(({ data }) => {
-          return data;
-        });
     },
   },
 };

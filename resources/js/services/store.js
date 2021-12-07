@@ -25,12 +25,13 @@ export default new Vue({
         },
         getAuthUser() {
             this.user.isLoading = true
-            http.get('api/users/current').then(resp => {
-                this.user = {
-                    ...this.user,
-                    data: resp.data
-                }
-            })
+            http.getAuthUser()
+                .then(resp => {
+                    this.user = {
+                        ...this.user,
+                        data: resp.data
+                    }
+                })
                 .finally(() => {
                     this.user.isLoading = false
                 })
