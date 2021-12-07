@@ -17,8 +17,9 @@ class ItemTest extends TestCase
         $user = factory(User::class)->create();
 
         $response = $this->actingAs($user, 'api')
-            ->call('GET', '/api/items', ['per_page' => 20]);
+            ->json('GET', 'api/items', ['per_page' => 20]);
 
         $response->assertOk();
+        $response->assertJsonCount(20, 'data');
     }
 }
