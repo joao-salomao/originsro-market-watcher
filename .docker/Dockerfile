@@ -1,22 +1,3 @@
-### Build Stage
-FROM node:12-alpine AS build-front-end-stage
-
-WORKDIR /var/www/html
-
-# Copy all source files
-COPY . .
-
-# Install front-end dependencies
-RUN npm install
-
-# Build front-end
-RUN npm run production
-
-# Remove unecessary files
-RUN rm -rf node_modules
-
-#######
-
 FROM php:7.4.1-apache
 
 USER root
@@ -41,11 +22,11 @@ RUN apt-get update && apt-get install -y \
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Copy files from build stage
-COPY --from=build-front-end-stage /var/www/html /var/www/html
-
 # Copy Apache VHost config file
 COPY .docker/vhost.conf /etc/apache2/sites-available/000-default.conf
+
+# Copy all source files
+COPY . .
 
 # Setup .env file
 RUN mv .env.example .env
