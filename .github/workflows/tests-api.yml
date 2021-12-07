@@ -15,16 +15,15 @@ jobs:
 
     - name: Go to API folder
       run: cd api
-
-    - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
+      
+    - uses: "shivammathur/setup-php@v2"
       with:
-        php-version: '7.3'
+        php-version: "7.3"
     
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
       
-    - name: Install Dependencies
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+    - uses: "ramsey/composer-install@v1"
       
     - name: Generate key
       run: php artisan key:generate
