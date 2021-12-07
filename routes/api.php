@@ -14,10 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:api')->group(function () {
-    Route::get('user/current', function () {
+    Route::get('users/current', function () {
         return response(auth()->user());
     });
 
-    Route::get('item', 'ItemController@index');
-    Route::resource('alert', AlertController::class);
+    Route::get('items', 'ItemController@index');
+    Route::resource('alerts', AlertController::class);
 });

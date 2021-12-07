@@ -147,7 +147,7 @@ export default {
       const { max_price, alert } = data;
 
       http
-        .put(`api/alert/${alert.id}`, { max_price })
+        .put(`api/alerts/${alert.id}`, { max_price })
         .then(({ data }) => {
           if (data.updated) {
             alert.max_price = max_price;
@@ -174,7 +174,7 @@ export default {
     },
     onClickDelete(item) {
       item.isDeleting = true;
-      http.delete(`api/alert/${item.id}`).finally(() => {
+      http.delete(`api/alerts/${item.id}`).finally(() => {
         item.isDeleting = false;
         this.alerts = this.alerts.filter((i) => i != item);
       });
@@ -182,7 +182,7 @@ export default {
     getAlerts() {
       this.isBusy = true;
       http
-        .get("api/alert")
+        .get("api/alerts")
         .then((resp) => {
           this.alerts = resp.data.map((i) => {
             return {

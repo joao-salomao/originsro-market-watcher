@@ -25,7 +25,7 @@ export default new Vue({
         },
         getAuthUser() {
             this.user.isLoading = true
-            http.get('api/user/current').then(resp => {
+            http.get('api/users/current').then(resp => {
                 this.user = {
                     ...this.user,
                     data: resp.data
