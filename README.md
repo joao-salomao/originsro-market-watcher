@@ -13,6 +13,10 @@ Apesar de serem oferecidas várias interfaces para que os jogadores acessem o me
 ## Arquitetura base da aplicação
 ![Arquitetura](https://github.com/joao-salomao/originsro-market-watcher/blob/main/.assets/app_architecture.png?raw=true)
 
+## Principais tecnologias utilizadas:
+- [Laravel](https://laravel.com)
+- [Vue.js](https://vuejs.org)
+- [SQLite](https://www.sqlite.org/index.html)
 
 ## Requisitos Gerais:
 
