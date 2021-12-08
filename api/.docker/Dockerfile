@@ -40,5 +40,8 @@ RUN composer install
 # Generate Application Key
 RUN php artisan key:generate
 
+# Generate Passport Keys
+RUN php artisan passport:keys
+
 RUN chown -R www-data:www-data /var/www/html \
     && a2enmod rewrite
