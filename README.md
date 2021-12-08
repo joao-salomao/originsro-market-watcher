@@ -9,6 +9,11 @@ No jogo é possível realizar a comercialização de itens e equipamentos que s�
 
 Apesar de serem oferecidas várias interfaces para que os jogadores acessem o mercado e realizem a comercialização de itens do jogo, não existe uma funcionalidade que verifique a disposição de um item ou equipamento no mercado, sendo necessário acessar uma das interfaces fornecidas e verificar manualmente se existe algum jogador disponibilizando o item requerido para venda no mercado. Para automatizar esse processo estou criando o **OriginsRO Market Watcher**, cuja principal função é notificar o usuário sobre a oferta de um item desejado no mercado do jogo passando como parâmetro o preço máximo que se deseja pagar, com esse dado o programa é capaz de executar uma rotina em segundo plano que verificar o mercado periodicamente, removendo, assim, a necessidade de acesso manual as interfaces padrões do jogo. 
 
+
+## Arquitetura base da aplicação
+![Arquitetura](https://github.com/joao-salomao/originsro-market-watcher/blob/main/.assets/app_architecture.png?raw=true)
+
+
 ## Requisitos Gerais:
 
 -   PHP ^7.2.5
