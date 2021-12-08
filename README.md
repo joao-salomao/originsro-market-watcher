@@ -1,4 +1,5 @@
 # OriginsRo Market Watcher
+[![Tests API](https://github.com/joao-salomao/originsro-market-watcher/actions/workflows/tests-api.yml/badge.svg?branch=main)](https://github.com/joao-salomao/originsro-market-watcher/actions/workflows/tests-api.yml)
 
 O [Origins Online (OriginsRO)](https://originsro.org) é emulador privado do MMORPG [Ragnarok Online](https://pt.wikipedia.org/wiki/Ragnar%C3%B6k_Online). O jogo foi desenvolvido originalmente pela empresa [Gravity Corporation](https://pt.wikipedia.org/wiki/Gravity_Corporation), ele é um mix de elementos que incluem referências à mitologia nórdica e visuais característicos do mundo oriental, tendo sido lançado oficialmente no brasil em 2005.
 
